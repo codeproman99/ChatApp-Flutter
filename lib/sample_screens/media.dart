@@ -25,7 +25,9 @@ class Media extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         SharedFlatButtons(btnText: StringConstant.photos),
+                        SizedBox(width:2.0),
                         SharedFlatButtons(btnText: StringConstant.links),
+                        SizedBox(width:2.0),
                         SharedFlatButtons(btnText: StringConstant.videos),
                       ],
                     ),

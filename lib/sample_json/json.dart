@@ -63,22 +63,92 @@ class SampleJSON {
   ];
   static const messages = [
     {
-      "name": "Osama",
+      "name": "Single one on one",
       "view": false,
       "last_message": "hey what's up?",
       "last_time": "16 min ago",
       "contact": "+95525682349",
+      "channel": "single",
       "unknown": false,
       "image":
           "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     },
     {
-      "name": "Angel",
+      "name": "unknown user",
       "view": false,
       "last_message": "hey what's up?",
       "last_time": "16 min ago",
       "contact": "+95525682349",
       "unknown": true,
+      "channel": "single",
+      "image":
+          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
+    },
+    {
+      "name": "group",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "channel": "group",
+      "unknown": false,
+      "image":
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+      "name": "broadcast",
+      "view": true,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "unknown": false,
+      "channel": "broadcast",
+      "image":
+          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
+    },
+  ];
+  static const broadcastUser = [
+    {
+      "name": "Osama",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "channel": "single",
+      "unknown": false,
+      "image":
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+      "name": "Oisee",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "unknown": true,
+      "channel": "single",
+      "image":
+          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
+    },
+    {
+      "name": "Hitman",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "channel": "group",
+      "unknown": false,
+      "image":
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+      "name": "Oggy",
+      "view": true,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "unknown": false,
+      "channel": "broadcast",
       "image":
           "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
     },
@@ -88,17 +158,41 @@ class SampleJSON {
       "last_message": "hey what's up?",
       "last_time": "16 min ago",
       "contact": "+95525682349",
+      "channel": "single",
       "unknown": false,
       "image":
           "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
     },
     {
-      "name": "Angel",
+      "name": "Oisee",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "unknown": true,
+      "channel": "single",
+      "image":
+          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
+    },
+    {
+      "name": "Hitman",
+      "view": false,
+      "last_message": "hey what's up?",
+      "last_time": "16 min ago",
+      "contact": "+95525682349",
+      "channel": "group",
+      "unknown": false,
+      "image":
+          "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+    },
+    {
+      "name": "Oggy",
       "view": true,
       "last_message": "hey what's up?",
       "last_time": "16 min ago",
       "contact": "+95525682349",
       "unknown": false,
+      "channel": "broadcast",
       "image":
           "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg-1024x683.jpg"
     },
@@ -253,7 +347,7 @@ class SampleJSON {
       "view": false,
       "last_message": "hey what's up?",
       "last_time": "16 min ago",
-      "message": "you there?",
+      "message": "hi?",
       "sent": "from",
       "media": "",
       "image":

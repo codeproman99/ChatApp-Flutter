@@ -65,7 +65,7 @@ class _PostState extends State<Post> {
                                 icon: Icon(
                                   FontAwesomeIcons.ellipsisH,
                                   color: Colors.white,
-                                  size: 30,
+                                  size: 18,
                                 ),
                                 items: [
                                   DropdownMenuItem<String>(
@@ -76,8 +76,8 @@ class _PostState extends State<Post> {
                                           padding: const EdgeInsets.all(8.0),
                                           child: Icon(
                                             Icons.warning,
-                                            color: Colors.grey,
-                                            size: 30,
+                                            color: Colors.white,
+                                            size: 18,
                                           ),
                                         ),
                                         Text(StringConstant.reportPost,

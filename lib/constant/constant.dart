@@ -6,6 +6,8 @@ class StringConstant {
   static const String motivationTips = "Motivation tips";
   static const String members = 'Members';
   static const String addNewMembers = "Add new member";
+  static const String addMembers = "Add member";
+  static const String add = "Add";
   static const String newGroup = "New group";
   static const String copyLink = "Copy link";
   static const String chatSettings = "Chat settings";
@@ -20,6 +22,7 @@ class StringConstant {
   static const String sendMessages = "Send message";
   static const String send = "Send";
   static const String sendaFile = "Send a file";
+  static const String createAstatus = "Create a status";
   static const String sharePost = "Share post";
   static const String clickaPhoto = "Click a photo";
   static const String uploadFromGallery = "Upload from gallery";

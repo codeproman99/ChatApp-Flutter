@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:tymoff/constant/constant.dart';
 import 'package:tymoff/constant/shared_color.dart';
 import 'package:tymoff/sample_json/json.dart';
@@ -17,8 +18,21 @@ class _ChatSettingsState extends State<ChatSettings> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-          appBar:
-              SharedWidget.simpleAppBar("Hitman", context, Icons.arrow_back,Colors.grey[200].withOpacity(0.2)),
+          appBar: PreferredSize(
+            preferredSize:
+                Size(MediaQuery.of(context).size.width, kToolbarHeight),
+            child: Container(
+              decoration: new BoxDecoration(
+                // color: Color(0xffe4e8f5).withOpacity(0.8),
+                gradient: LinearGradient(
+                    colors: [Color(0xffF5F4FF), Color(0xffe4e8f5)],
+                    begin: Alignment.topCenter,
+                    tileMode: TileMode.clamp),
+              ),
+              child: SharedWidget.simpleAppBar("Hitman", context,
+                  Icons.arrow_back, Color(0xffe4e8f5).withOpacity(0.5)),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,12 +51,12 @@ class _ChatSettingsState extends State<ChatSettings> {
                       horizontal: 15.0, vertical: 15),
                   child: Text(StringConstant.chatSettings,
                       style: TextStyle(
-                          fontSize: 22,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.black)),
+                          color: SharedColor.fontColorDarkBlue)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
                   child: Container(
                       color: Colors.white,
                       child: Padding(
@@ -52,9 +66,10 @@ class _ChatSettingsState extends State<ChatSettings> {
                           children: <Widget>[
                             Text(
                               StringConstant.notifications,
-                              style: TextStyle(fontSize: 18),
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.grey),
                             ),
-                            Switch(
+                            CupertinoSwitch(
                               value: isSwitched,
                               onChanged: (value) {
                                 setState(() {
@@ -62,7 +77,7 @@ class _ChatSettingsState extends State<ChatSettings> {
                                   print(isSwitched);
                                 });
                               },
-                              activeTrackColor: SharedColor.blueAncent,
+                              activeColor: SharedColor.blueAncent,
                             )
                           ],
                         ),
@@ -77,42 +92,103 @@ class _ChatSettingsState extends State<ChatSettings> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0, vertical: 8),
+                          child: Text(StringConstant.media,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: SharedColor.fontColorDarkBlue)),
+                        ),
+                        Padding(
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
                               SharedFlatButtons(btnText: StringConstant.photos),
+                              SizedBox(width: 2),
                               SharedFlatButtons(btnText: StringConstant.links),
+                              SizedBox(width: 2),
                               SharedFlatButtons(btnText: StringConstant.videos),
                             ],
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 15.0, vertical: 15),
-                          child: Text(StringConstant.media,
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black)),
+                        Column(
+                          children: <Widget>[
+                            Container(
+                              height: MediaQuery.of(context).size.height / 2,
+                              color: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              child: GridView.builder(
+                                itemCount: SampleJSON.photos.length,
+                                gridDelegate:
+                                    new SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 3),
+                                physics: BouncingScrollPhysics(),
+                                itemBuilder: (context, index) {
+                                  return Card(
+                                    child: ClipRRect(
+                                        child: Image(
+                                      image: NetworkImage(
+                                          SampleJSON.photos[index]["image"]),
+                                      fit: BoxFit.cover,
+                                    )),
+                                  );
+                                },
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RoutesConstant.media);
+                              },
+                              child: Container(
+                                color: Colors.white,
+                                alignment: Alignment.bottomRight,
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 5.0),
+                                child: Text(
+                                  "View all",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.blue[800],
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                        Flexible(
-                          child: GridView.builder(
-                            itemCount: SampleJSON.photos.length,
-                            gridDelegate:
-                                new SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 3),
-                            physics: BouncingScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return Card(
-                                child: ClipRRect(
-                                    child: Image(
-                                  image: NetworkImage(
-                                      SampleJSON.photos[index]["image"]),
-                                  fit: BoxFit.cover,
-                                )),
-                              );
-                            },
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            color: SharedColor.redBtnColor,
+                            onPressed: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(StringConstant.report + " Hitman",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.white)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 15),
+                        Container(
+                          height: 50,
+                          width: MediaQuery.of(context).size.width,
+                          child: FlatButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            color: SharedColor.redBtnColor,
+                            onPressed: () {},
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Block Hitman",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.white)),
+                            ),
                           ),
                         ),
                       ],
@@ -122,6 +198,53 @@ class _ChatSettingsState extends State<ChatSettings> {
               ],
             ),
           )),
+    );
+  }
+
+  Widget warningButtons() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: 50,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                color: SharedColor.redBtnColor,
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(StringConstant.reportSpam,
+                      style: TextStyle(fontSize: 14, color: Colors.white)),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.4,
+              height: 50,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                color: SharedColor.redBtnColor,
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(StringConstant.blockUser,
+                      style: TextStyle(fontSize: 14, color: Colors.white)),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

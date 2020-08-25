@@ -10,7 +10,7 @@ class ShareBottomSheetModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.9,
+      height: MediaQuery.of(context).size.height / 1.5,
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -30,30 +30,28 @@ class ShareBottomSheetModal extends StatelessWidget {
                 style: SharedStyles.bottomsheetHeading),
           ),
         ),
-        Wrap(
+        SizedBox(height: 8),
+        Row(
           children: <Widget>[
             SizedBox(
-                width: MediaQuery.of(context).size.width / 1.7,
+                width: MediaQuery.of(context).size.width / 1.5,
                 child: SearchBar()),
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height / 15.5,
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5)),
-                  color: SharedColor.blueAncent,
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(StringConstant.copyLink,
-                        style: TextStyle(color: Colors.white)),
-                  ),
+            SizedBox(
+              height: 40,
+              child: FlatButton(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                color: SharedColor.blueAncent,
+                onPressed: () {},
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(StringConstant.copyLink,
+                      style: TextStyle(color: Colors.white)),
                 ),
               ),
             ),
-            Icon(FontAwesomeIcons.whatsappSquare,
-                size: 50, color: Color(0xff38EC5A)),
+            // Icon(FontAwesomeIcons.whatsappSquare,
+            //     size: 50, color: Color(0xff38EC5A)),
           ],
         ),
         Flexible(
@@ -78,23 +76,38 @@ class ShareBottomSheetModal extends StatelessWidget {
                             NetworkImage(SampleJSON.user[index]["image"])),
                     title: Text(SampleJSON.user[index]["name"],
                         style: TextStyle(fontSize: 18)),
-                    trailing: Icon(FontAwesomeIcons.circle),
+                    trailing:
+                        Icon(FontAwesomeIcons.circle, color: SharedColor.grey),
                   );
                 },
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.8,
+              Padding(
                 padding: const EdgeInsets.symmetric(
                     horizontal: 15.0, vertical: 10.0),
-                child: FlatButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  color: SharedColor.blueAncent,
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(StringConstant.send,
-                        style: TextStyle(color: Colors.white)),
+                child: Container(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  decoration: new BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: SharedColor.blueAncent,
+                        offset: Offset(1.0, 3.0),
+                        blurRadius: 10.0,
+                      ),
+                    ],
+                  ),
+                  child: FlatButton(
+                    color: SharedColor.blueAncent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50),
+                    ),
+                    onPressed: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Text(StringConstant.send,
+                          style: TextStyle(color: Colors.white, fontSize: 18)),
+                    ),
                   ),
                 ),
               ),

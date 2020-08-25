@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tymoff/constant/constant.dart';
 import 'package:tymoff/constant/shared_color.dart';
@@ -26,7 +27,15 @@ class _GroupSettingState extends State<GroupSetting> {
             Stack(
               children: <Widget>[
                 Container(
-                    height: 100, color: SharedColor.grey.withOpacity(0.3)),
+                  decoration: new BoxDecoration(
+                    // color: Color(0xffe4e8f5).withOpacity(0.8),
+                    gradient: LinearGradient(
+                        colors: [Color(0xffe4e8f5), Color(0xffF5F4FF)],
+                        begin: Alignment.topCenter,
+                        tileMode: TileMode.clamp),
+                  ),
+                  height: 100,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 40.0),
                   child: Row(
@@ -72,7 +81,7 @@ class _GroupSettingState extends State<GroupSetting> {
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
-                      color: Colors.black)),
+                      color: SharedColor.fontColorDarkBlue)),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -94,7 +103,9 @@ class _GroupSettingState extends State<GroupSetting> {
                               ),
                               Text(
                                 "College gang",
-                                style: TextStyle(fontSize: 18),
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: SharedColor.fontColorDarkBlue, fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -111,7 +122,7 @@ class _GroupSettingState extends State<GroupSetting> {
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.grey),
                                 ),
-                                Switch(
+                                CupertinoSwitch(
                                   value: shareLinkSwitch,
                                   onChanged: (value) {
                                     setState(() {
@@ -119,35 +130,41 @@ class _GroupSettingState extends State<GroupSetting> {
                                       print(shareLinkSwitch);
                                     });
                                   },
-                                  activeTrackColor: SharedColor.blueAncent,
+                                  activeColor: SharedColor.blueAncent,
                                 )
                               ],
                             ),
                             shareLinkSwitch == true
-                                ? Container(
-                                    color: SharedColor.grey,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.6,
-                                            child: Text(
-                                                "your share able link will be generated here.. "),
+                                ? Padding(
+                                    padding: const EdgeInsets.only(bottom: 8.0),
+                                    child: Container(
+                                        color: SharedColor.grey,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.6,
+                                                child: Text(
+                                                  "your share able link will be generated here.. ",
+                                                  style: TextStyle(
+                                                      color: Colors.grey),
+                                                ),
+                                              ),
+                                              Text(
+                                                "Share",
+                                                style: TextStyle(
+                                                    color: Colors.blue[800]),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            "Share",
-                                            style: TextStyle(
-                                                color: Colors.blue[800]),
-                                          ),
-                                        ],
-                                      ),
-                                    ))
+                                        )),
+                                  )
                                 : SizedBox(),
                             Text(
                               "This is the public link for the group. Anyone with this link can join the group and view/post content.",
@@ -168,7 +185,7 @@ class _GroupSettingState extends State<GroupSetting> {
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.grey),
                                 ),
-                                Switch(
+                                CupertinoSwitch(
                                   value: postByAdminSwitch,
                                   onChanged: (value) {
                                     setState(() {
@@ -176,7 +193,7 @@ class _GroupSettingState extends State<GroupSetting> {
                                       print(postByAdminSwitch);
                                     });
                                   },
-                                  activeTrackColor: SharedColor.blueAncent,
+                                  activeColor: SharedColor.blueAncent,
                                 )
                               ],
                             ),
@@ -200,24 +217,26 @@ class _GroupSettingState extends State<GroupSetting> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5.0, vertical: 10),
+                      child: Text(StringConstant.media,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                              color: SharedColor.fontColorDarkBlue)),
+                    ),
+                    Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
                           SharedFlatButtons(btnText: StringConstant.photos),
+                          SizedBox(width: 2),
                           SharedFlatButtons(btnText: StringConstant.links),
+                          SizedBox(width: 2),
                           SharedFlatButtons(btnText: StringConstant.videos),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15.0, vertical: 15),
-                      child: Text(StringConstant.media,
-                          style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black)),
                     ),
                     Column(
                       children: <Widget>[
@@ -227,6 +246,7 @@ class _GroupSettingState extends State<GroupSetting> {
                           padding: const EdgeInsets.symmetric(vertical: 5),
                           child: GridView.builder(
                             itemCount: SampleJSON.photos.length,
+                            primary: false,
                             gridDelegate:
                                 new SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 3),
@@ -243,15 +263,20 @@ class _GroupSettingState extends State<GroupSetting> {
                             },
                           ),
                         ),
-                        Container(
-                          color: Colors.white,
-                          alignment: Alignment.bottomRight,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 5.0),
-                          child: Text(
-                            "View all",
-                            style: TextStyle(
-                                fontSize: 14, color: Colors.blue[800]),
+                        InkWell(
+                          onTap: () {
+                            Navigator.pushNamed(context, RoutesConstant.media);
+                          },
+                          child: Container(
+                            color: Colors.white,
+                            alignment: Alignment.bottomRight,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 5.0),
+                            child: Text(
+                              "View all",
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.blue[800], fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                       ],
@@ -264,12 +289,15 @@ class _GroupSettingState extends State<GroupSetting> {
                         children: <Widget>[
                           Text(
                             StringConstant.members,
-                            style: TextStyle(fontSize: 18, color: Colors.black),
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                                color: SharedColor.fontColorDarkBlue),
                           ),
                           Text(
                             StringConstant.addNewMembers,
                             style: TextStyle(
-                                fontSize: 14, color: Colors.blue[800]),
+                                fontSize: 15, color: Colors.blue[800], fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),
@@ -277,6 +305,7 @@ class _GroupSettingState extends State<GroupSetting> {
                     Container(
                       height: MediaQuery.of(context).size.height / 2,
                       child: ListView.separated(
+                        primary: false,
                         separatorBuilder: (context, index) {
                           return Padding(
                             padding:
@@ -295,7 +324,10 @@ class _GroupSettingState extends State<GroupSetting> {
                                     SampleJSON.user[index]["image"])),
                             title: Text(SampleJSON.user[index]["name"],
                                 style: TextStyle(fontSize: 18)),
-                            trailing: Icon(FontAwesomeIcons.ellipsisH),
+                            trailing: Icon(
+                              FontAwesomeIcons.ellipsisH,
+                              color: Colors.grey[300],
+                            ),
                           );
                         },
                       ),
@@ -308,10 +340,10 @@ class _GroupSettingState extends State<GroupSetting> {
                         child: FlatButton(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20)),
-                          color: Colors.red,
+                          color: SharedColor.redBtnColor,
                           onPressed: () {},
                           child: Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(15.0),
                             child: Text("Leave group",
                                 style: TextStyle(color: Colors.white)),
                           ),
