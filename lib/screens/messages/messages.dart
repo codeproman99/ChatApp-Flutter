@@ -103,27 +103,27 @@ class Messages extends StatelessWidget {
                     InkWell(
                       onTap: () {
                         scaffoldKey.currentState.showBottomSheet(
-                          (context) => GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                            child: Stack(
-                              alignment: Alignment.bottomCenter,
-                              children: [
-                                BlurryEffect(
+                          (context) => Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: BlurryEffect(
                                     0.5, 5, SharedColor.backgroundColorblur),
-                                Container(
-                                    decoration: new BoxDecoration(
-                                      borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(20.0),
-                                          topRight: Radius.circular(20.0)),
-                                      color: Colors.transparent,
-                                    ),
-                                    padding: const EdgeInsets.only(
-                                        top: 80.0, left: 2, right: 2),
-                                    child: BottomSheetModalNewMessage()),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                  decoration: new BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(20.0),
+                                        topRight: Radius.circular(20.0)),
+                                    color: Colors.transparent,
+                                  ),
+                                  padding: const EdgeInsets.only(
+                                      top: 80.0, left: 2, right: 2),
+                                  child: BottomSheetModalNewMessage()),
+                            ],
                           ),
                           backgroundColor: Colors.transparent,
                         );

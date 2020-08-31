@@ -87,13 +87,16 @@ class _ChatState extends State<Chat> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
+                  Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.arrow_back,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                   Text(
@@ -104,9 +107,7 @@ class _ChatState extends State<Chat> {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                           color: Colors.black)),
-                  Container(),
-                  Container(),
-                  Container(),
+                  Spacer(),
                   Flexible(
                     child: InkWell(
                       onTap: () {
@@ -273,25 +274,25 @@ class _ChatState extends State<Chat> {
           InkWell(
             onTap: () {
               scaffoldKey.currentState.showBottomSheet(
-                (context) => GestureDetector(
-                  onTap: () {
-                    Navigator.pop(context);
-                  },
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: [
-                      BlurryEffect(0.5, 5, SharedColor.backgroundColorblur),
-                      Container(
-                          decoration: new BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(20.0),
-                                topRight: Radius.circular(20.0)),
-                            color: Colors.transparent,
-                          ),
-                          padding: const EdgeInsets.only(top: 80.0),
-                          child: BottomSheetAttachment()),
-                    ],
-                  ),
+                (context) => Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: BlurryEffect(
+                            0.5, 5, SharedColor.backgroundColorblur)),
+                    Container(
+                        decoration: new BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0)),
+                          color: Colors.transparent,
+                        ),
+                        padding: const EdgeInsets.only(top: 80.0),
+                        child: BottomSheetAttachment()),
+                  ],
                 ),
                 backgroundColor: Colors.transparent,
               );

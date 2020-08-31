@@ -2,30 +2,41 @@ import 'package:flutter/material.dart';
 
 class SharedFlatButtons extends StatelessWidget {
   final String btnText;
-
-  const SharedFlatButtons({Key key, this.btnText}) : super(key: key);
+  final bool selected;
+  final Color textColor;
+  final Color backgroundColor;
+  const SharedFlatButtons(
+      {Key key,
+      this.btnText,
+      this.selected,
+      this.textColor,
+      this.backgroundColor})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        decoration: new BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
-        ),
+      child: SizedBox(
+        height: 50,
         child: FlatButton(
-            splashColor: Color(0xffE6E5FF),
+            splashColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color: backgroundColor, // Color(0xffE6E5FF).withOpacity(0.9),
             onPressed: () {
               // Navigator.pushNamed(context, RoutesConstant.messages);
             },
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                btnText,
-                style: TextStyle(
-                    fontSize: MediaQuery.of(context).size.width / 28,
-                    fontWeight: FontWeight.bold),
-                overflow: TextOverflow.clip,
+            child: Text(
+              btnText,
+              style: TextStyle(
+                fontSize: MediaQuery.of(context).size.width / 28,
+                fontWeight: FontWeight.bold,
+                color: textColor,
+                // Color(0xffA1A5D3)
+                // Colors.grey[800]
               ),
+              overflow: TextOverflow.clip,
             )),
       ),
     );

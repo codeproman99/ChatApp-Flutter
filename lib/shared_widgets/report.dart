@@ -5,7 +5,7 @@ import 'package:tymoff/constant/shared_color.dart';
 import 'blurry_background.dart';
 
 class ReportBottomModals {
-  static reportOptions(context) {
+  static reportOptions(context, {GlobalKey<ScaffoldState> scaffoldKey}) {
     showModalBottomSheet(
         context: context,
         shape: RoundedRectangleBorder(
@@ -13,17 +13,18 @@ class ReportBottomModals {
               topLeft: Radius.circular(20.0), topRight: Radius.circular(20.0)),
         ),
         builder: (builder) {
+          final TextTheme textTheme = Theme.of(context).textTheme;
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  child: Text(
-                    StringConstant.reportPost,
-                    style: TextStyle(
-                        fontSize: 18, color: SharedColor.fontColorGrey),
-                  ),
+                  child: Text(StringConstant.reportPost,
+                      style: textTheme.headline6.copyWith(
+                        color: SharedColor.fontColorGrey,
+                        fontSize: 18,
+                      )),
                   padding: EdgeInsets.all(15.0),
                 ),
                 Divider(),
@@ -118,11 +119,11 @@ class ReportBottomModals {
                 Divider(),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    color: Colors.grey[200],
-                    elevation: 0.0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(5.0)),
+                  child: Container(
+                    decoration: new BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: Colors.grey[200],
+                    ),
                     child: Container(
                       height: MediaQuery.of(context).size.height / 6,
                       child: Padding(
@@ -143,22 +144,63 @@ class ReportBottomModals {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
+                      height: 50,
                       width: MediaQuery.of(context).size.width * 0.8,
+                      decoration: new BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: SharedColor.blueAncent,
+                            offset: Offset(1.0, 3.0),
+                            blurRadius: 10.0,
+                          ),
+                        ],
+                      ),
                       child: FlatButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
                         color: SharedColor.blueAncent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
                         onPressed: () {
                           reportMessage(context);
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Text(StringConstant.report,
                               style:
-                                  TextStyle(fontSize: 20, color: Colors.white)),
+                                  TextStyle(color: Colors.white, fontSize: 18)),
                         ),
                       ),
                     ),
+
+                    // Container(
+                    //   width: MediaQuery.of(context).size.width * 0.8,
+                    //   height: 50,
+                    //   decoration: new BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(50),
+                    //     boxShadow: <BoxShadow>[
+                    //       BoxShadow(
+                    //         color: SharedColor.blueAncent,
+                    //         offset: Offset(1.0, 3.0),
+                    //         blurRadius: 10.0,
+                    //       ),
+                    //     ],
+                    //   ),
+                    //   child: FlatButton(
+                    //     shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(20)),
+                    //     color: SharedColor.blueAncent,
+                    //     onPressed: () {
+                    //       reportMessage(context);
+                    //     },
+                    //     child: Padding(
+                    //       padding: const EdgeInsets.all(8.0),
+                    //       child: Text(StringConstant.report,
+                    //           style:
+                    //               TextStyle(fontSize: 20, color: Colors.white)),
+                    //     ),
+                    //   ),
+                    // ),
                   ),
                 )
               ],
@@ -230,9 +272,18 @@ class ReportBottomModals {
   }
 }
 
-class ReportOptions extends StatelessWidget {
+class ReportOptions extends StatefulWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const ReportOptions({Key key, this.scaffoldKey}) : super(key: key);
+  @override
+  _ReportOptionsState createState() => _ReportOptionsState();
+}
+
+class _ReportOptionsState extends State<ReportOptions> {
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +292,10 @@ class ReportOptions extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               StringConstant.reportStatus,
-              style: TextStyle(fontSize: 20, color: SharedColor.fontColorGrey),
+              style: textTheme.headline6.copyWith(
+                  color: SharedColor.fontColorGrey,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w400),
             ),
             padding: EdgeInsets.all(15.0),
           ),
@@ -269,27 +323,52 @@ class ReportOptions extends StatelessWidget {
               showBottomSheet(
                   backgroundColor: Colors.transparent,
                   context: context,
-                  builder: (context) => GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            BlurryEffect(
+                  builder: (context) => Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: BlurryEffect(
                                 0.5, 5, SharedColor.backgroundColorblur),
-                            Container(
-                                decoration: new BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(20.0),
-                                      topRight: Radius.circular(20.0)),
-                                  color: Colors.white,
-                                ),
-                                height: 300,
-                                child: ReportOthers()),
-                          ],
-                        ),
+                          ),
+                          Container(
+                              decoration: new BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(20.0),
+                                    topRight: Radius.circular(20.0)),
+                                color: Colors.white,
+                              ),
+                              height: 300,
+                              child: ReportOthers()),
+                        ],
                       ));
+
+              // showBottomSheet(
+              //     backgroundColor: Colors.transparent,
+              //     context: context,
+              //     builder: (context) => GestureDetector(
+              //           onTap: () {
+              //             Navigator.pop(context);
+              //           },
+              //           child: Stack(
+              //             alignment: Alignment.bottomCenter,
+              //             children: [
+              //               BlurryEffect(
+              //                   0.5, 5, SharedColor.backgroundColorblur),
+              //               Container(
+              //                   decoration: new BoxDecoration(
+              //                     borderRadius: BorderRadius.only(
+              //                         topLeft: Radius.circular(20.0),
+              //                         topRight: Radius.circular(20.0)),
+              //                     color: Colors.white,
+              //                   ),
+              //                   height: 300,
+              //                   child: ReportOthers()),
+              //             ],
+              //           ),
+              //         ));
             },
             child: Container(
               width: MediaQuery.of(context).size.width,
@@ -310,34 +389,61 @@ class ReportOptions extends StatelessWidget {
 class ReportOthers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              InkWell(
-                enableFeedback: true,
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 5, top: 10, bottom: 10),
-                  child: Icon(Icons.arrow_back, color: Colors.black),
+          Container(
+            height: 50,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                InkWell(
+                  enableFeedback: true,
+                  onTap: () {
+                    Navigator.pop(context);
+                    showBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) => Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: BlurryEffect(
+                                      0.5, 5, SharedColor.backgroundColorblur),
+                                ),
+                                Container(
+                                    decoration: new BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0)),
+                                      color: Colors.white,
+                                    ),
+                                    height: 230,
+                                    child: ReportOptions()),
+                              ],
+                            ));
+                  },
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 10, top: 10, bottom: 10),
+                    child: Icon(Icons.arrow_back, color: Colors.black),
+                  ),
                 ),
-              ),
-              Container(
-                alignment: Alignment.center,
-                child: Text(
+                Text(
                   StringConstant.reportPost,
-                  style:
-                      TextStyle(fontSize: 18, color: SharedColor.fontColorGrey),
+                  style: textTheme.headline6.copyWith(
+                      color: SharedColor.fontColorGrey,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w400),
                 ),
-                padding: EdgeInsets.all(15.0),
-              ),
-              Container()
-            ],
+                Padding(padding: EdgeInsets.only(right: 40))
+              ],
+            ),
           ),
           Divider(),
           Container(
@@ -375,34 +481,45 @@ class ReportOthers extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
+                height: 50,
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: SharedColor.blueAncent,
+                      offset: Offset(1.0, 3.0),
+                      blurRadius: 5.0,
+                    ),
+                  ],
+                ),
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(40)),
                   color: SharedColor.blueAncent,
                   onPressed: () {
                     showBottomSheet(
                         backgroundColor: Colors.transparent,
                         context: context,
-                        builder: (context) => GestureDetector(
-                              onTap: () {
-                                Navigator.pop(context);
-                              },
-                              child: Stack(
-                                alignment: Alignment.bottomCenter,
-                                children: [
-                                  BlurryEffect(
+                        builder: (context) => Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: BlurryEffect(
                                       0.5, 5, SharedColor.backgroundColorblur),
-                                  Container(
-                                      decoration: new BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(20.0),
-                                            topRight: Radius.circular(20.0)),
-                                        color: Colors.white,
-                                      ),
-                                      height: 250,
-                                      child: ReportMessage()),
-                                ],
-                              ),
+                                ),
+                                Container(
+                                    decoration: new BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20.0),
+                                          topRight: Radius.circular(20.0)),
+                                      color: Colors.white,
+                                    ),
+                                    height: 250,
+                                    child: ReportMessage()),
+                              ],
                             ));
                   },
                   child: Padding(
@@ -423,16 +540,24 @@ class ReportOthers extends StatelessWidget {
 class ReportMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
             alignment: Alignment.center,
-            child: Text(
-              StringConstant.postHasBeenReported,
-              style: TextStyle(fontSize: 18, color: SharedColor.fontColorGrey),
-            ),
+            child: Text(StringConstant.statusHasBeenReported,
+                style: textTheme.headline6.copyWith(
+                    color: SharedColor.fontColorGrey,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400)
+
+                //  TextStyle(
+                //     fontSize: 18,
+                //     color: SharedColor.fontColorGrey,
+                //     fontWeight: FontWeight.w500),
+                ),
             padding: EdgeInsets.all(15.0),
           ),
           Divider(),
@@ -440,10 +565,13 @@ class ReportMessage extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
             child: Container(
               alignment: Alignment.center,
-              width: MediaQuery.of(context).size.width * 0.8,
+              width: MediaQuery.of(context).size.width,
               child: Text(
                 "We have recieved your report and will look into it shortly. Meanwhile let us know if you also want to block the user from seeing your posts and showing up on your feed.",
-                style: TextStyle(fontSize: 15),
+                style: TextStyle(
+                  fontSize: 15,
+                  color: SharedColor.fontColorGrey,
+                ),
               ),
               padding: EdgeInsets.all(15.0),
             ),
@@ -454,14 +582,27 @@ class ReportMessage extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.8,
+                height: 50,
+                decoration: new BoxDecoration(
+                  borderRadius: BorderRadius.circular(80),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: SharedColor.blueAncent,
+                      offset: Offset(1.0, 3.0),
+                      blurRadius: 5.0,
+                    ),
+                  ],
+                ),
                 child: FlatButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(40)),
                   color: SharedColor.blueAncent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(StringConstant.blockedUser,
+                    child: Text(StringConstant.blockUser,
                         style: TextStyle(fontSize: 20, color: Colors.white)),
                   ),
                 ),

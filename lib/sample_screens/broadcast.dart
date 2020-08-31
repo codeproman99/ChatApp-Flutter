@@ -22,6 +22,7 @@ class _BroadcastSettingsState extends State<BroadcastSettings> {
   @override
   Widget build(BuildContext context) {
     dynamic broadcastUser = SampleJSON.broadcastUser;
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
           key: scaffoldKey,
@@ -37,14 +38,17 @@ class _BroadcastSettingsState extends State<BroadcastSettings> {
                     // color: Color(0xffe4e8f5).withOpacity(0.8),
                     gradient: LinearGradient(
                         colors: [Color(0xffe4e8f5), Color(0xffF5F4FF)],
-                        begin: Alignment.topCenter,
-                        tileMode: TileMode.clamp),
+                        stops: [0.0, 1.0],
+                        begin: FractionalOffset.topCenter,
+                        end: FractionalOffset.bottomCenter,
+                        tileMode: TileMode.repeated),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(3.0),
+                        padding: const EdgeInsets.only(
+                            left: 10, top: 3.0, bottom: 3.0),
                         child: InkWell(
                           onTap: () {
                             Navigator.pop(context);
@@ -116,10 +120,10 @@ class _BroadcastSettingsState extends State<BroadcastSettings> {
                       Text(
                         '${SampleJSON.broadcastUser.length} ${StringConstant.members}',
                         maxLines: 1,
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: SharedColor.fontColorDarkBlue),
+                        style: textTheme.headline6.copyWith(
+                          color: SharedColor.fontColorDarkBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       InkWell(
                         enableFeedback: true,
@@ -150,14 +154,16 @@ class _BroadcastSettingsState extends State<BroadcastSettings> {
                             backgroundColor: Colors.transparent,
                           );
                         },
-                        child: Text(
-                          StringConstant.addNewMembers,
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontSize: 16,
+                        child: Text(StringConstant.addNewMembers,
+                            maxLines: 1,
+                            style: textTheme.subtitle2.copyWith(
                               color: Colors.blue[600],
-                              fontWeight: FontWeight.w500),
-                        ),
+                            )
+                            // TextStyle(
+                            //     fontSize: 14,
+                            //     color: Colors.blue[600],
+                            //     fontWeight: FontWeight.w500),
+                            ),
                       )
                     ],
                   ),
@@ -193,25 +199,56 @@ class _BroadcastSettingsState extends State<BroadcastSettings> {
   Widget broadcastList(index) {
     return Column(
       children: [
-        ListTile(
-          leading: CircleAvatar(
-              radius: 20,
-              backgroundImage:
-                  NetworkImage(SampleJSON.broadcastUser[index]["image"])),
-          title: Text(SampleJSON.broadcastUser[index]["name"],
-              style: TextStyle(fontSize: 15)),
-          trailing: Icon(
-            FontAwesomeIcons.ellipsisH,
-            size: 15,
-            color: Colors.grey.withOpacity(0.5),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0),
-          child: Divider(
-            color: Colors.grey.withOpacity(0.5),
-          ),
-        )
+        Container(
+            decoration: new BoxDecoration(
+                border: Border(
+                    bottom: BorderSide(
+              width: 0.5,
+              color: Colors.grey.withOpacity(0.5),
+            ))),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+            child: Row(
+              children: <Widget>[
+                CircleAvatar(
+                    radius: 20,
+                    backgroundImage:
+                        NetworkImage(SampleJSON.broadcastUser[index]["image"])),
+                SizedBox(
+                  width: 10,
+                ),
+                Text(SampleJSON.broadcastUser[index]["name"],
+                    style: TextStyle(fontSize: 15)),
+                Spacer(),
+                Icon(
+                  FontAwesomeIcons.ellipsisH,
+                  size: 15,
+                  color: Colors.grey.withOpacity(0.5),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ))
+
+        // ListTile(
+        //   leading: CircleAvatar(
+        //       radius: 20,
+        //       backgroundImage:
+        //           NetworkImage(SampleJSON.broadcastUser[index]["image"])),
+        //   title: Text(SampleJSON.broadcastUser[index]["name"],
+        //       style: TextStyle(fontSize: 15)),
+        //   trailing: Icon(
+        //     FontAwesomeIcons.ellipsisH,
+        //     size: 15,
+        //     color: Colors.grey.withOpacity(0.5),
+        //   ),
+        // ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        //   child: Divider(
+        //     color: Colors.grey.withOpacity(0.5),
+        //   ),
+        // )
       ],
     );
   }

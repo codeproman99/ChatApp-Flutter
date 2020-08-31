@@ -1,3 +1,4 @@
+import 'package:custom_switch/custom_switch.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:tymoff/constant/constant.dart';
@@ -31,8 +32,10 @@ class _GroupSettingState extends State<GroupSetting> {
                     // color: Color(0xffe4e8f5).withOpacity(0.8),
                     gradient: LinearGradient(
                         colors: [Color(0xffe4e8f5), Color(0xffF5F4FF)],
-                        begin: Alignment.topCenter,
-                        tileMode: TileMode.clamp),
+                        stops: [0.0, 1.0],
+                        begin: FractionalOffset.topCenter,
+                        end: FractionalOffset.bottomCenter,
+                        tileMode: TileMode.repeated),
                   ),
                   height: 100,
                 ),
@@ -105,7 +108,8 @@ class _GroupSettingState extends State<GroupSetting> {
                                 "College gang",
                                 style: TextStyle(
                                     fontSize: 18,
-                                    color: SharedColor.fontColorDarkBlue, fontWeight: FontWeight.w600),
+                                    color: SharedColor.fontColorDarkBlue,
+                                    fontWeight: FontWeight.w600),
                               ),
                             ],
                           ),
@@ -122,7 +126,7 @@ class _GroupSettingState extends State<GroupSetting> {
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.grey),
                                 ),
-                                CupertinoSwitch(
+                                CustomSwitch(
                                   value: shareLinkSwitch,
                                   onChanged: (value) {
                                     setState(() {
@@ -185,7 +189,7 @@ class _GroupSettingState extends State<GroupSetting> {
                                   style: TextStyle(
                                       fontSize: 18, color: Colors.grey),
                                 ),
-                                CupertinoSwitch(
+                                CustomSwitch(
                                   value: postByAdminSwitch,
                                   onChanged: (value) {
                                     setState(() {
@@ -230,11 +234,23 @@ class _GroupSettingState extends State<GroupSetting> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: <Widget>[
-                          SharedFlatButtons(btnText: StringConstant.photos),
-                          SizedBox(width: 2),
-                          SharedFlatButtons(btnText: StringConstant.links),
-                          SizedBox(width: 2),
-                          SharedFlatButtons(btnText: StringConstant.videos),
+                          SharedFlatButtons(
+                            btnText: StringConstant.photos,
+                            textColor: Color(0xffA1A5D3),
+                            backgroundColor: Color(0xffE6E5FF).withOpacity(0.9),
+                          ),
+                          SizedBox(width: 8),
+                          SharedFlatButtons(
+                            btnText: StringConstant.links,
+                            textColor: Colors.grey[800],
+                            backgroundColor: Colors.white,
+                          ),
+                          SizedBox(width: 8),
+                          SharedFlatButtons(
+                            btnText: StringConstant.videos,
+                            textColor: Colors.grey[800],
+                            backgroundColor: Colors.white,
+                          ),
                         ],
                       ),
                     ),
@@ -275,7 +291,9 @@ class _GroupSettingState extends State<GroupSetting> {
                             child: Text(
                               "View all",
                               style: TextStyle(
-                                  fontSize: 16, color: Colors.blue[800], fontWeight: FontWeight.w500),
+                                  fontSize: 16,
+                                  color: Colors.blue[800],
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
                         ),
@@ -297,7 +315,9 @@ class _GroupSettingState extends State<GroupSetting> {
                           Text(
                             StringConstant.addNewMembers,
                             style: TextStyle(
-                                fontSize: 15, color: Colors.blue[800], fontWeight: FontWeight.w500),
+                                fontSize: 15,
+                                color: Colors.blue[800],
+                                fontWeight: FontWeight.w500),
                           ),
                         ],
                       ),

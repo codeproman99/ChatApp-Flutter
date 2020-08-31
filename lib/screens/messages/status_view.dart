@@ -72,43 +72,90 @@ class _StatusState extends State<Status> {
                         child: Icon(Icons.arrow_back, color: Colors.white),
                       ),
                     ),
-                    ListTile(
-                        leading: CircleAvatar(
+                    Row(
+                      children: [
+                        SizedBox(width: 8),
+                        CircleAvatar(
                           backgroundImage: NetworkImage(
                               "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                         ),
-                        title: Text(
+                        SizedBox(width: 8),
+                        Text(
                           "Osama",
                           style: TextStyle(color: Colors.white),
                         ),
-                        trailing: Padding(
+                        Spacer(),
+                        Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
-                                icon: Icon(
-                                  FontAwesomeIcons.ellipsisH,
-                                  color: Colors.white,
-                                  size: 16,
+                                dropdownColor: Colors.transparent,
+                                iconEnabledColor: Colors.grey,
+                                iconDisabledColor: Colors.white,
+                                focusColor: Colors.transparent,
+                                icon: Container(
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Icon(
+                                      FontAwesomeIcons.ellipsisH,
+                                      color: Colors.grey[850],
+                                      size: 16,
+                                    ),
+                                  ),
                                 ),
                                 items: [
                                   DropdownMenuItem<String>(
                                     value: "1",
-                                    child: Row(
-                                      children: <Widget>[
-                                        Padding(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          top: 80.0, left: 10),
+                                      child: Container(
+                                        decoration: new BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Icon(
-                                            Icons.warning,
-                                            color: Colors.grey,
-                                            size: 30,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Icon(
+                                                  FontAwesomeIcons
+                                                      .exclamationTriangle,
+                                                  color: Colors.grey,
+                                                  size: 20,
+                                                ),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(StringConstant.reportStatus,
+                                                  style: TextStyle(
+                                                      fontSize: 18.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      color: Colors.redAccent)),
+                                              SizedBox(width: 15),
+                                              Transform.translate(
+                                                offset: Offset(40, -20),
+                                                child: Transform.rotate(
+                                                  angle: -0.8,
+                                                  child: Container(
+                                                      height: 20,
+                                                      width: 20,
+                                                      decoration: BoxDecoration(
+                                                          color: Colors.white,
+                                                          shape: BoxShape
+                                                              .rectangle)),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                        Text(StringConstant.reportStatus,
-                                            style: TextStyle(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w500,
-                                                color: Colors.redAccent)),
-                                      ],
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -118,16 +165,21 @@ class _StatusState extends State<Status> {
                                       scaffoldKey.currentState.showBottomSheet(
                                         (context) => GestureDetector(
                                           onTap: () {
-                                            Navigator.pop(context);
+                                            // Navigator.pop(context);
                                           },
                                           child: Stack(
                                             alignment: Alignment.bottomCenter,
                                             children: [
-                                              BlurryEffect(
-                                                  0.5,
-                                                  5,
-                                                  SharedColor
-                                                      .backgroundColorblur),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: BlurryEffect(
+                                                    0.5,
+                                                    5,
+                                                    SharedColor
+                                                        .backgroundColorblur),
+                                              ),
                                               Padding(
                                                 padding:
                                                     const EdgeInsets.symmetric(
@@ -145,11 +197,13 @@ class _StatusState extends State<Status> {
                                                                       20.0)),
                                                       color: Colors.white,
                                                     ),
-                                                    height: 250,
+                                                    height: 230,
                                                     padding:
                                                         const EdgeInsets.only(
                                                             left: 2, right: 2),
-                                                    child: ReportOptions()),
+                                                    child: ReportOptions(
+                                                      scaffoldKey: scaffoldKey,
+                                                    )),
                                               ),
                                             ],
                                           ),
@@ -160,7 +214,141 @@ class _StatusState extends State<Status> {
                                   });
                                 },
                               ),
-                            ))),
+                            )),
+                        SizedBox(width: 8),
+                      ],
+                    ),
+                    // ListTile(
+                    //     leading: CircleAvatar(
+                    //       backgroundImage: NetworkImage(
+                    //           "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    //     ),
+                    //     title: Text(
+                    //       "Osama",
+                    //       style: TextStyle(color: Colors.white),
+                    //     ),
+                    //     trailing: Padding(
+                    //         padding: const EdgeInsets.all(4.0),
+                    //         child: DropdownButtonHideUnderline(
+                    //           child: DropdownButton(
+                    //             dropdownColor: Colors.transparent,
+                    //             icon: Container(
+                    //               decoration: BoxDecoration(
+                    //                   shape: BoxShape.circle,
+                    //                   color: Colors.white),
+                    //               child: Padding(
+                    //                 padding: const EdgeInsets.all(10.0),
+                    //                 child: Icon(
+                    //                   FontAwesomeIcons.ellipsisH,
+                    //                   color: Colors.grey[850],
+                    //                   size: 16,
+                    //                 ),
+                    //               ),
+                    //             ),
+                    //             items: [
+                    //               DropdownMenuItem<String>(
+                    //                 value: "1",
+                    //                 child: Padding(
+                    //                   padding: const EdgeInsets.only(
+                    //                       top: 80.0, left: 10),
+                    //                   child: Container(
+                    //                     decoration: new BoxDecoration(
+                    //                         color: Colors.white,
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(10)),
+                    //                     child: Padding(
+                    //                       padding: const EdgeInsets.all(8.0),
+                    //                       child: Row(
+                    //                         children: <Widget>[
+                    //                           Padding(
+                    //                             padding:
+                    //                                 const EdgeInsets.all(8.0),
+                    //                             child: Icon(
+                    //                               FontAwesomeIcons
+                    //                                   .exclamationTriangle,
+                    //                               color: Colors.grey,
+                    //                               size: 20,
+                    //                             ),
+                    //                           ),
+                    //                           SizedBox(width: 5),
+                    //                           Text(StringConstant.reportStatus,
+                    //                               style: TextStyle(
+                    //                                   fontSize: 18.0,
+                    //                                   fontWeight:
+                    //                                       FontWeight.w500,
+                    //                                   color: Colors.redAccent)),
+                    //                           SizedBox(width: 15),
+                    //                           Transform.translate(
+                    //                             offset: Offset(20, -20),
+                    //                             child: Transform.rotate(
+                    //                               angle: -0.7,
+                    //                               child: Container(
+                    //                                   height: 20,
+                    //                                   width: 20,
+                    //                                   decoration: BoxDecoration(
+                    //                                       color: Colors.white,
+                    //                                       shape: BoxShape
+                    //                                           .rectangle)),
+                    //                             ),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //               ),
+                    //             ],
+                    //             onChanged: (value) {
+                    //               setState(() {
+                    //                 if (value == '1') {
+                    //                   scaffoldKey.currentState.showBottomSheet(
+                    //                     (context) => GestureDetector(
+                    //                       onTap: () {
+                    //                         Navigator.pop(context);
+                    //                       },
+                    //                       child: Stack(
+                    //                         alignment: Alignment.bottomCenter,
+                    //                         children: [
+                    //                           BlurryEffect(
+                    //                               0.5,
+                    //                               5,
+                    //                               SharedColor
+                    //                                   .backgroundColorblur),
+                    //                           Padding(
+                    //                             padding:
+                    //                                 const EdgeInsets.symmetric(
+                    //                                     horizontal: 2.0),
+                    //                             child: Container(
+                    //                                 decoration:
+                    //                                     new BoxDecoration(
+                    //                                   borderRadius:
+                    //                                       BorderRadius.only(
+                    //                                           topLeft: Radius
+                    //                                               .circular(
+                    //                                                   20.0),
+                    //                                           topRight: Radius
+                    //                                               .circular(
+                    //                                                   20.0)),
+                    //                                   color: Colors.white,
+                    //                                 ),
+                    //                                 height: 230,
+                    //                                 padding:
+                    //                                     const EdgeInsets.only(
+                    //                                         left: 2, right: 2),
+                    //                                 child: ReportOptions(
+                    //                                   scaffoldKey: scaffoldKey,
+                    //                                 )),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                     backgroundColor: Colors.transparent,
+                    //                   );
+                    //                 }
+                    //               });
+                    //             },
+                    //           ),
+                    //         ))),
                   ],
                 ),
                 widget.user == 1

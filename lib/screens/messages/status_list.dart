@@ -40,21 +40,49 @@ class StatusList extends StatelessWidget {
                                         children: [
                                           BlurryEffect(0.5, 5,
                                               SharedColor.backgroundColorblur),
-                                          Container(
-                                              decoration: new BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    topLeft:
-                                                        Radius.circular(20.0),
-                                                    topRight:
-                                                        Radius.circular(20.0)),
-                                                color: Colors.white,
-                                              ),
-                                              height: 200,
-                                              child:
-                                                  BottomSheetModalAddStatus()),
+                                          IntrinsicHeight(
+                                            child: Container(
+                                                decoration: new BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          topLeft:
+                                                              Radius.circular(
+                                                                  8.0),
+                                                          topRight:
+                                                              Radius.circular(
+                                                                  8.0)),
+                                                  color: Colors.white,
+                                                ),
+                                                child:
+                                                    BottomSheetModalAddStatus()),
+                                          ),
                                         ],
                                       ),
                                     ));
+                            // showModalBottomSheet(
+                            //     context: context,
+                            //     backgroundColor: Colors.transparent,
+                            //     isScrollControlled: true,
+                            //     builder: (context) => Stack(
+                            //           alignment: Alignment.bottomCenter,
+                            //           children: [
+                            //             BlurryEffect(0.5, 5,
+                            //                 SharedColor.backgroundColorblur),
+                            //             DraggableScrollableSheet(
+                            //                 expand: false,
+                            //                 initialChildSize: 0.3,
+                            //                 maxChildSize: 0.34,
+                            //                 minChildSize: 0.3,
+                            //                 builder: (BuildContext context,
+                            //                     ScrollController
+                            //                         scrollController) {
+                            //                   return BottomSheetModalAddStatus(
+                            //                     controller: scrollController,
+                            //                   );
+                            //                 }),
+                            //             // ),
+                            //           ],
+                            //         ));
                           },
                           child: Column(
                             children: <Widget>[
@@ -142,52 +170,69 @@ class StatusList extends StatelessWidget {
 }
 
 class BottomSheetModalAddStatus extends StatelessWidget {
+  final ScrollController controller;
+
+  const BottomSheetModalAddStatus({Key key, this.controller}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              StringConstant.createAstatus,
-              style: TextStyle(fontSize: 18, color: SharedColor.fontColorGrey),
-            ),
-            padding: EdgeInsets.all(15.0),
-          ),
-          Divider(),
-          Container(
-            child: Text(
-              StringConstant.clickaPhoto,
-              style: TextStyle(fontSize: 16, color: SharedColor.fontColorGrey),
-            ),
-            padding: EdgeInsets.all(10.0),
-          ),
-          Divider(),
-          Container(
-            child: Text(
-              StringConstant.uploadFromGallery,
-              style: TextStyle(fontSize: 16, color: SharedColor.fontColorGrey),
-            ),
-            padding: EdgeInsets.all(10.0),
-          ),
-          Divider(),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, RoutesConstant.status, arguments: 1);
-            },
-            child: Container(
+      controller: controller,
+      child: Container(
+        decoration: new BoxDecoration(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(8.0), topRight: Radius.circular(8.0)),
+          color: Colors.white,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              alignment: Alignment.center,
               child: Text(
-                "temporary button",
+                StringConstant.createAstatus,
+                style: textTheme.headline6.copyWith(
+                    color: SharedColor.fontColorGrey,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w400),
+              ),
+              padding: EdgeInsets.all(15.0),
+            ),
+            Divider(),
+            Container(
+              child: Text(
+                StringConstant.clickaPhoto,
                 style:
                     TextStyle(fontSize: 16, color: SharedColor.fontColorGrey),
               ),
-              padding: EdgeInsets.all(10.0),
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
             ),
-          ),
-        ],
+            Divider(),
+            Container(
+              child: Text(
+                StringConstant.uploadFromGallery,
+                style:
+                    TextStyle(fontSize: 16, color: SharedColor.fontColorGrey),
+              ),
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+            ),
+            Divider(),
+            InkWell(
+              onTap: () {
+                Navigator.pushNamed(context, RoutesConstant.status,
+                    arguments: 1);
+              },
+              child: Container(
+                child: Text(
+                  "temporary button",
+                  style:
+                      TextStyle(fontSize: 16, color: SharedColor.fontColorGrey),
+                ),
+                padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

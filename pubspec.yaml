@@ -35,6 +35,7 @@ dependencies:
   flutter_svg: ^0.18.0
   pubnub: ^1.0.0
   fdottedline: ^1.0.1
+  custom_switch: ^0.0.1
 
 dev_dependencies:
   flutter_test:

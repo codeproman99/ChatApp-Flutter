@@ -5,6 +5,7 @@ import 'package:tymoff/sample_json/json.dart';
 import 'package:tymoff/shared_widgets/flat_buttons.dart';
 import 'package:tymoff/shared_widgets/simple_app_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:custom_switch/custom_switch.dart';
 
 class ChatSettings extends StatefulWidget {
   @override
@@ -25,9 +26,11 @@ class _ChatSettingsState extends State<ChatSettings> {
               decoration: new BoxDecoration(
                 // color: Color(0xffe4e8f5).withOpacity(0.8),
                 gradient: LinearGradient(
-                    colors: [Color(0xffF5F4FF), Color(0xffe4e8f5)],
-                    begin: Alignment.topCenter,
-                    tileMode: TileMode.clamp),
+                    colors: [Color(0xffe4e8f5), Color(0xffF5F4FF)],
+                    stops: [0.0, 1.0],
+                    begin: FractionalOffset.topCenter,
+                    end: FractionalOffset.bottomCenter,
+                    tileMode: TileMode.repeated),
               ),
               child: SharedWidget.simpleAppBar("Hitman", context,
                   Icons.arrow_back, Color(0xffe4e8f5).withOpacity(0.5)),
@@ -69,7 +72,7 @@ class _ChatSettingsState extends State<ChatSettings> {
                               style:
                                   TextStyle(fontSize: 16, color: Colors.grey),
                             ),
-                            CupertinoSwitch(
+                            CustomSwitch(
                               value: isSwitched,
                               onChanged: (value) {
                                 setState(() {
@@ -93,7 +96,7 @@ class _ChatSettingsState extends State<ChatSettings> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8.0, vertical: 8),
+                              horizontal: 8.0, vertical: 4),
                           child: Text(StringConstant.media,
                               style: TextStyle(
                                   fontSize: 18,
@@ -105,11 +108,24 @@ class _ChatSettingsState extends State<ChatSettings> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
-                              SharedFlatButtons(btnText: StringConstant.photos),
-                              SizedBox(width: 2),
-                              SharedFlatButtons(btnText: StringConstant.links),
-                              SizedBox(width: 2),
-                              SharedFlatButtons(btnText: StringConstant.videos),
+                              SharedFlatButtons(
+                                btnText: StringConstant.photos,
+                                textColor: Color(0xffA1A5D3),
+                                backgroundColor:
+                                    Color(0xffE6E5FF).withOpacity(0.9),
+                              ),
+                              SizedBox(width: 8),
+                              SharedFlatButtons(
+                                btnText: StringConstant.links,
+                                textColor: Colors.grey[800],
+                                backgroundColor: Colors.white,
+                              ),
+                              SizedBox(width: 8),
+                              SharedFlatButtons(
+                                btnText: StringConstant.videos,
+                                textColor: Colors.grey[800],
+                                backgroundColor: Colors.white,
+                              ),
                             ],
                           ),
                         ),
